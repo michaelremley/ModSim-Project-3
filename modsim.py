@@ -425,7 +425,7 @@ def run_ode_solver(system, slope_func, **options):
     """Computes a numerical solution to a differential equation.
 
     `system` must contain `init` with initial conditions,
-    `t_0` with the start time, and `time_end` with the end time.
+    `t_0` with the start time, and `t_end` with the end time.
 
     It can contain any other parameters required by the slope function.
 
@@ -443,10 +443,10 @@ def run_ode_solver(system, slope_func, **options):
                  object that specifies the initial condition:"""
         raise ValueError(msg)
 
-    # make sure `system` contains `time_end`
-    if not hasattr(system, 'time_end'):
-        msg = """It looks like `system` does not contain `time_end`
-                 as a system variable.  `time_end` should be the
+    # make sure `system` contains `t_end`
+    if not hasattr(system, 't_end'):
+        msg = """It looks like `system` does not contain `t_end`
+                 as a system variable.  `t_end` should be the
                  final time:"""
         raise ValueError(msg)
 
@@ -494,7 +494,7 @@ def run_ode_solver(system, slope_func, **options):
 
     # run the solver
     with units_off():
-        bunch = solve_ivp(f, [t_0, time_end], y_0, events=events, **options)
+        bunch = solve_ivp(f, [t_0, t_end], y_0, events=events, **options)
 
     # separate the results from the details
     y = bunch.pop('y')
